@@ -15,7 +15,10 @@ func NewHelloCommand() HelloCommand {
 	}
 }
 
-func (cmd HelloCommand) Run() error {
-	fmt.Println("Hello World!")
+func (cmd HelloCommand) Run(args []string) error {
+	name := cmd.Flags.String("name", "World", "name to use when saying hello")
+	cmd.Flags.Parse(args)
+
+	fmt.Printf("Hello %s!\n", *name)
 	return nil
 }

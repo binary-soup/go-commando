@@ -17,13 +17,13 @@ func NewRunner(commands ...Command) Runner {
 	}
 }
 
-func (r Runner) RunCommand(name string) error {
+func (r Runner) RunCommand(name string, args []string) error {
 	cmd, ok := r.Commands[name]
 	if !ok {
 		return fmt.Errorf("unknown command \"%s\"", name)
 	}
 
-	return cmd.Run()
+	return cmd.Run(args)
 }
 
 func (r Runner) ListCommands() {

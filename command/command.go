@@ -1,22 +1,27 @@
 package command
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 type Command interface {
 	GetName() string
 	PrintUsage()
-	Run() error
+	Run(args []string) error
 }
 
 type CommandBase struct {
 	Name        string
 	Description string
+	Flags       *flag.FlagSet
 }
 
 func NewCommandBase(name string, desc string) CommandBase {
 	return CommandBase{
 		Name:        name,
 		Description: desc,
+		Flags:       flag.NewFlagSet(name, flag.ExitOnError),
 	}
 }
 

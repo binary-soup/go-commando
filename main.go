@@ -19,7 +19,7 @@ func main() {
 		return
 	}
 
-	if err := runner.RunCommand(os.Args[1]); err != nil {
+	if err := runner.RunCommand(os.Args[1], os.Args[2:]); err != nil {
 		log.Fatal(err)
 	}
 }
