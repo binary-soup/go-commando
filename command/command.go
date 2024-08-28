@@ -18,11 +18,19 @@ type CommandBase struct {
 }
 
 func NewCommandBase(name string, desc string) CommandBase {
-	return CommandBase{
+	cmd := CommandBase{
 		Name:        name,
 		Description: desc,
 		Flags:       flag.NewFlagSet(name, flag.ExitOnError),
 	}
+
+	cmd.Flags.Usage = func() {
+		cmd.PrintUsage()
+		fmt.Println("Options:")
+		cmd.Flags.PrintDefaults()
+	}
+
+	return cmd
 }
 
 func (cmd CommandBase) GetName() string {
