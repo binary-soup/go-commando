@@ -3,8 +3,9 @@ package sample
 
 import (
 	"fmt"
-	"local/command"
-	"local/style"
+
+	"github.com/binary-soup/go-command/command"
+	"github.com/binary-soup/go-command/style"
 )
 
 // Sample hello command for printing "Hello" to the console.

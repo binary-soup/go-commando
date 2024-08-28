@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"local/command"
-	"local/command/sample"
-	"local/style"
 	"os"
+
+	"github.com/binary-soup/go-command/command"
+	"github.com/binary-soup/go-command/command/sample"
+	"github.com/binary-soup/go-command/style"
 )
 
 func main() {

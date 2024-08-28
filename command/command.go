@@ -4,7 +4,8 @@ package command
 import (
 	"flag"
 	"fmt"
-	"local/style"
+
+	"github.com/binary-soup/go-command/style"
 )
 
 // The interface definition of a command.
