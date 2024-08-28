@@ -3,11 +3,14 @@ package main
 import (
 	"fmt"
 	"local/command"
+	"local/command/sample"
 	"log"
 	"os"
 )
 
-var commands []command.Command = []command.Command{}
+var commands []command.Command = []command.Command{
+	sample.NewHelloCommand(),
+}
 
 func main() {
 	if len(os.Args) < 2 {
