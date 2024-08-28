@@ -16,12 +16,11 @@ type HelloCommand struct {
 // Creates a new HelloCommand.
 func NewHelloCommand() HelloCommand {
 	return HelloCommand{
-		CommandBase: command.NewCommandBase("hello", "prints hello world to the console"),
+		CommandBase: command.NewCommandBase("hello", "prints hello {name} to the console"),
 	}
 }
 
-// Prints "Hello {name}!" to the console.
-// Args: -name (default "World").
+// Run the Hello commands. See usage string for details.
 func (cmd HelloCommand) Run(args []string) error {
 	name := cmd.Flags.String("name", "World", "name to use when saying hello")
 	cmd.Flags.Parse(args)
