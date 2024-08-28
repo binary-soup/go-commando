@@ -3,6 +3,7 @@ package sample
 import (
 	"fmt"
 	"local/command"
+	"local/style"
 )
 
 type HelloCommand struct {
@@ -19,6 +20,8 @@ func (cmd HelloCommand) Run(args []string) error {
 	name := cmd.Flags.String("name", "World", "name to use when saying hello")
 	cmd.Flags.Parse(args)
 
-	fmt.Printf("Hello %s!\n", *name)
+	boldYellow := style.New(style.Bold, style.Yellow)
+
+	fmt.Printf("Hello %s!\n", boldYellow.Format(*name))
 	return nil
 }

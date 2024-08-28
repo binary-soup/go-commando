@@ -2,9 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"local/command"
 	"local/command/sample"
-	"log"
+	"local/style"
 	"os"
 )
 
@@ -20,6 +21,7 @@ func main() {
 	}
 
 	if err := runner.RunCommand(os.Args[1], os.Args[2:]); err != nil {
-		log.Fatal(err)
+		style.BoldError.Print("ERROR: ")
+		fmt.Println(err)
 	}
 }

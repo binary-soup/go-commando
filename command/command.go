@@ -3,6 +3,7 @@ package command
 import (
 	"flag"
 	"fmt"
+	"local/style"
 )
 
 type Command interface {
@@ -26,7 +27,7 @@ func NewCommandBase(name string, desc string) CommandBase {
 
 	cmd.Flags.Usage = func() {
 		cmd.PrintUsage()
-		fmt.Println("Options:")
+		style.New(style.Magenta).Println("Options:")
 		cmd.Flags.PrintDefaults()
 	}
 
@@ -38,5 +39,5 @@ func (cmd CommandBase) GetName() string {
 }
 
 func (cmd CommandBase) PrintUsage() {
-	fmt.Printf("%s | %s\n", cmd.Name, cmd.Description)
+	fmt.Printf("%s | %s\n", style.New(style.Bold, style.Cyan).Format(cmd.Name), cmd.Description)
 }
