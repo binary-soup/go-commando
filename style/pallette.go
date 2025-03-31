@@ -22,3 +22,6 @@ var Create = New(Green)
 
 var BoldDelete = New(Bold, Red)
 var Delete = New(Red)
+
+var BoldInfo = New(Bold, Cyan)
+var Info = New(Cyan)
