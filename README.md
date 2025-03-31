@@ -4,10 +4,11 @@ The `go-command` module provides several types for managing multiple commands wi
 
 ## Usage
 
-The module consists mainly of three packages:
+The module consists mainly of four packages:
 - `command`: this packages defines multiple types for defining, creating, and running commands
 - `command/sample`: this package defines sample commands useful for learning how the module works
 - `style`: this package provides semantic types and methods for changing the style (mode and colour) of console output
+- `util`: this packages provides simple helper functions for a verity of general use cases
 
 The following main definition demonstrates the basic usage of the module:
 
