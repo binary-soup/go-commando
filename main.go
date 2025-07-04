@@ -2,12 +2,11 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 
+	"github.com/binary-soup/go-command/alert"
 	"github.com/binary-soup/go-command/command"
 	"github.com/binary-soup/go-command/command/sample"
-	"github.com/binary-soup/go-command/style"
 )
 
 func main() {
@@ -22,7 +21,6 @@ func main() {
 	}
 
 	if err := runner.RunCommand(os.Args[1], os.Args[2:]); err != nil {
-		style.BoldError.Print("ERROR: ")
-		fmt.Println(err)
+		alert.Print(err)
 	}
 }

@@ -3,13 +3,15 @@ package util
 import (
 	"encoding/json"
 	"os"
+
+	"github.com/binary-soup/go-command/alert"
 )
 
 // Load the generic type from a JSON file.
 func LoadJSON[T any](name, path string) (*T, error) {
 	file, err := os.Open(path)
 	if err != nil {
-		return nil, ChainErrorF(err, "error opening %s file", name)
+		return nil, alert.ChainErrorF(err, "error opening %s file", name)
 	}
 	defer file.Close()
 
@@ -17,7 +19,7 @@ func LoadJSON[T any](name, path string) (*T, error) {
 
 	decoder := json.NewDecoder(file)
 	if err := decoder.Decode(obj); err != nil {
-		return nil, ChainErrorF(err, "error decoding %s JSON", name)
+		return nil, alert.ChainErrorF(err, "error decoding %s JSON", name)
 	}
 
 	return obj, nil
@@ -27,7 +29,7 @@ func LoadJSON[T any](name, path string) (*T, error) {
 func SaveJSON[T any](name string, data *T, path string) error {
 	file, err := os.Create(path)
 	if err != nil {
-		return ChainErrorF(err, "error creating %s file", name)
+		return alert.ChainErrorF(err, "error creating %s file", name)
 	}
 	defer file.Close()
 
@@ -36,7 +38,7 @@ func SaveJSON[T any](name string, data *T, path string) error {
 
 	err = encoder.Encode(data)
 	if err != nil {
-		return ChainErrorF(err, "error encoding %s JSON", name)
+		return alert.ChainErrorF(err, "error encoding %s JSON", name)
 	}
 
 	return nil
