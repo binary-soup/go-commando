@@ -13,7 +13,10 @@ func main() {
 	ls := flag.Bool("ls", false, "list all commands")
 	flag.Parse()
 
-	runner := command.NewRunner(sample.NewHelloCommand())
+	runner := command.NewRunner(
+		sample.NewHelloCommand(),
+		command.NewConfigCommand[sample.SampleConfig](),
+	)
 
 	if *ls || len(os.Args) < 2 {
 		runner.ListCommands()

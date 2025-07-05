@@ -26,6 +26,9 @@ func ErrorF(format string, args ...any) error {
 
 // Chain a new error message with an existing error.
 func ChainError(err error, message string) error {
+	if err == nil {
+		return Error(message)
+	}
 	return fmt.Errorf("%s\n  %s", message, err.Error())
 }
 
