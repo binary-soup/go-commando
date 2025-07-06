@@ -18,29 +18,31 @@ func SetDefault(path string) {
 }
 
 // Load the config from the default path set by SetDefault, or "config.json" if not set.
-func LoadDefault[T Config]() (*T, error) {
+func LoadDefault[T Config]() (T, error) {
+	var empty T
+
 	path, err := os.Executable()
 	if err != nil {
-		return nil, alert.ChainError(err, "error finding executable path")
+		return empty, alert.ChainError(err, "error finding executable path")
 	}
 	return LoadCustom[T](filepath.Join(filepath.Dir(path), defaultPath))
 }
 
 // Load the config from a custom path.
-func LoadCustom[T Config](path string) (*T, error) {
+func LoadCustom[T Config](path string) (T, error) {
 	cfg, err := util.LoadJSON[T]("config", path)
 	if err != nil {
-		return nil, err
+		return cfg, err
 	}
 
-	err = (*cfg).Load()
+	err = cfg.Load()
 	if err != nil {
-		return nil, alert.ChainError(err, "error loading config")
+		return cfg, alert.ChainError(err, "error loading config")
 	}
 
-	err = validate(*cfg)
+	err = validate(cfg)
 	if err != nil {
-		return nil, err
+		return cfg, err
 	}
 
 	return cfg, nil

@@ -19,7 +19,7 @@ func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[
 	return cmd
 }
 
-func (cmd ConfigCommandBase[T]) LoadConfig() (*T, error) {
+func (cmd ConfigCommandBase[T]) LoadConfig() (T, error) {
 	if *cmd.config != "" {
 		return config.LoadCustom[T](*cmd.config)
 	}
