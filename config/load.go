@@ -38,5 +38,10 @@ func LoadCustom[T Config](path string) (*T, error) {
 		return nil, alert.ChainError(err, "error loading config")
 	}
 
+	err = validate(*cfg)
+	if err != nil {
+		return nil, err
+	}
+
 	return cfg, nil
 }

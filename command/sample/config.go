@@ -11,15 +11,19 @@ const (
 	COUNT_MAX = 100
 )
 
+// A sample config object.
 type SampleConfig struct {
 	Path  string `json:"path"`
 	Count int    `json:"count"`
 }
 
+// Implements Config interface Load method.
 func (SampleConfig) Load() error {
 	return nil
 }
 
+// Implements Config interface Validate method.
+// Provides example implementation for writing validations.
 func (cfg SampleConfig) Validate() ([]error, error) {
 	errs := []error{}
 
