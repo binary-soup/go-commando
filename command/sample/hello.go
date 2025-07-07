@@ -4,6 +4,7 @@ package sample
 import (
 	"fmt"
 
+	"github.com/binary-soup/go-command/alert"
 	"github.com/binary-soup/go-command/command"
 	"github.com/binary-soup/go-command/style"
 )
@@ -22,8 +23,12 @@ func NewHelloCommand() HelloCommand {
 
 // Run the Hello commands. See usage string for details.
 func (cmd HelloCommand) Run(args []string) error {
-	name := cmd.Flags.String("name", "World", "name to use when saying hello")
+	name := cmd.Flags.String("name", "", "name to use when saying hello")
 	cmd.Flags.Parse(args)
+
+	if *name == "" {
+		return alert.Error("\"name\" cannot be empty")
+	}
 
 	boldYellow := style.New(style.Bold, style.Yellow)
 
