@@ -5,7 +5,7 @@ import (
 )
 
 type Stream interface {
-	Redirect(w *os.File)
+	Redirect(read, write *os.File)
 	Reset()
 }
 
@@ -24,7 +24,7 @@ func Capture(s Stream) StreamCapture {
 		write:  w,
 	}
 
-	s.Redirect(w)
+	s.Redirect(r, w)
 	return c
 }
 
@@ -35,23 +35,4 @@ func (s StreamCapture) Read(p []byte) (n int, err error) {
 func (s StreamCapture) Close() {
 	s.write.Close()
 	s.stream.Reset()
-}
-
-//############################
-
-type stdoutStream struct {
-	stdout *os.File
-}
-
-func (s *stdoutStream) Redirect(w *os.File) {
-	s.stdout = os.Stdout
-	os.Stdout = w
-}
-
-func (s stdoutStream) Reset() {
-	os.Stdout = s.stdout
-}
-
-func CaptureStdout() StreamCapture {
-	return Capture(&stdoutStream{})
 }

@@ -16,7 +16,7 @@ func TestNameNotEmpty(t *testing.T) {
 }
 
 func TestPrintName(t *testing.T) {
-	s := test.CaptureStdout()
+	s := test.CaptureStdIO()
 	defer s.Close()
 
 	const NAME = "Bob"
