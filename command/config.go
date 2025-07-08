@@ -11,12 +11,12 @@ type ConfigCommandBase[T config.Config] struct {
 }
 
 func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[T] {
-	cmd := ConfigCommandBase[T]{
-		CommandBase: NewCommandBase(name, desc),
-	}
+	base := NewCommandBase(name, desc)
 
-	cmd.config = cmd.Flags.String("config", "", "path to a custom config file")
-	return cmd
+	return ConfigCommandBase[T]{
+		CommandBase: base,
+		config:      base.Flags.String("config", "", "path to a custom config file"),
+	}
 }
 
 func (cmd ConfigCommandBase[T]) LoadConfig() (T, error) {
@@ -42,7 +42,7 @@ func NewConfigCommand[T config.Config]() ConfigCommand[T] {
 
 // Runs the config commands. Run with -h for details.
 func (cmd ConfigCommand[T]) Run(args []string) error {
-	cmd.Flags.Parse(args)
+	cmd.ParseFlags(args)
 
 	_, err := cmd.LoadConfig()
 	if err != nil {

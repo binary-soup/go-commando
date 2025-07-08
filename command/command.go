@@ -61,3 +61,8 @@ func (cmd CommandBase) GetName() string {
 func (cmd CommandBase) PrintUsage() {
 	fmt.Printf("%s | %s\n", style.New(style.Bold, style.Cyan).Format(cmd.Name), cmd.Description)
 }
+
+// Parse the provided args using the flag set.
+func (cmd CommandBase) ParseFlags(args []string) {
+	cmd.Flags.Parse(args)
+}

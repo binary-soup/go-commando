@@ -1,31 +1,34 @@
 package sample_test
 
 import (
-	"bufio"
 	"testing"
 
 	"github.com/binary-soup/go-command/command/sample"
 	"github.com/binary-soup/go-command/test"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestNameNotEmpty(t *testing.T) {
-	err := sample.NewHelloCommand().Run([]string{})
-	require.Error(t, err)
-	test.AssertErrorContainsAll(t, err, []string{"name", "cannot", "empty"})
+func TestHelloCommandSuite(t *testing.T) {
+	suite.Run(t, &HelloTestSuite{
+		CommandSuite: test.NewCommandSuite(sample.NewHelloCommand()),
+	})
 }
 
-func TestPrintName(t *testing.T) {
-	p := test.NewConsolePipe()
+type HelloTestSuite struct {
+	test.CommandSuite
+}
+
+func (suite *HelloTestSuite) TestNameNotEmpty() {
+	suite.AssertCommandFail([]string{}, []string{"name", "cannot", "empty"})
+}
+
+func (suite *HelloTestSuite) TestPrintName() {
+	p, s := suite.ConsolePipe()
 	defer p.Close()
 
 	const NAME = "Bob"
+	suite.AssertCommandSuccess([]string{"-name", NAME})
 
-	err := sample.NewHelloCommand().Run([]string{"-name", NAME})
-	require.NoError(t, err)
-
-	scanner := bufio.NewScanner(p)
-
-	scanner.Scan()
-	test.AssertContainsAll(t, scanner.Text(), []string{"Hello", NAME})
+	s.Scan()
+	test.AssertContainsAll(suite.T(), s.Text(), []string{"Hello", NAME})
 }

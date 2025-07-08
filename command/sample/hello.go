@@ -12,26 +12,29 @@ import (
 // Sample hello command for printing "Hello" to the console.
 type HelloCommand struct {
 	command.CommandBase
+	name *string
 }
 
 // Creates a new HelloCommand.
 func NewHelloCommand() HelloCommand {
+	base := command.NewCommandBase("hello", "prints hello {name} to the console")
+
 	return HelloCommand{
-		CommandBase: command.NewCommandBase("hello", "prints hello {name} to the console"),
+		CommandBase: base,
+		name:        base.Flags.String("name", "", "name to use when saying hello"),
 	}
 }
 
 // Run the Hello commands. See usage string for details.
 func (cmd HelloCommand) Run(args []string) error {
-	name := cmd.Flags.String("name", "", "name to use when saying hello")
-	cmd.Flags.Parse(args)
+	cmd.ParseFlags(args)
 
-	if *name == "" {
+	if *cmd.name == "" {
 		return alert.Error("\"name\" cannot be empty")
 	}
 
 	boldYellow := style.New(style.Bold, style.Yellow)
 
-	fmt.Printf("Hello %s!\n", boldYellow.Format(*name))
+	fmt.Printf("Hello %s!\n", boldYellow.Format(*cmd.name))
 	return nil
 }
