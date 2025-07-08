@@ -16,15 +16,15 @@ func TestNameNotEmpty(t *testing.T) {
 }
 
 func TestPrintName(t *testing.T) {
-	s := test.CaptureStdIO()
-	defer s.Close()
+	p := test.NewConsolePipe()
+	defer p.Close()
 
 	const NAME = "Bob"
 
 	err := sample.NewHelloCommand().Run([]string{"-name", NAME})
 	require.NoError(t, err)
 
-	scanner := bufio.NewScanner(s)
+	scanner := bufio.NewScanner(p)
 
 	scanner.Scan()
 	test.AssertContainsAll(t, scanner.Text(), []string{"Hello", NAME})
