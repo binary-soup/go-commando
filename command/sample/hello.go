@@ -33,8 +33,6 @@ func (cmd HelloCommand) Run(args []string) error {
 		return alert.Error("\"name\" cannot be empty")
 	}
 
-	boldYellow := style.New(style.Bold, style.Yellow)
-
-	fmt.Printf("Hello %s!\n", boldYellow.Format(*cmd.name))
+	fmt.Printf("Hello %s!\n", style.New(style.Bold, style.Yellow).Format(*cmd.name))
 	return nil
 }

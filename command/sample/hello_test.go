@@ -23,12 +23,11 @@ func (suite *HelloTestSuite) TestNameNotEmpty() {
 }
 
 func (suite *HelloTestSuite) TestPrintName() {
-	p, s := suite.ConsolePipe()
-	defer p.Close()
-
 	const NAME = "Bob"
-	suite.AssertCommandSuccess([]string{"-name", NAME})
 
-	s.Scan()
-	test.AssertContainsAll(suite.T(), s.Text(), []string{"Hello", NAME})
+	r := test.NewStdoutReader()
+	defer r.Close()
+
+	suite.AssertCommandSuccess([]string{"-name", NAME})
+	r.AssertLineContains(suite.T(), []string{"Hello", NAME})
 }

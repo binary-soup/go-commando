@@ -1,8 +1,6 @@
 package test
 
 import (
-	"bufio"
-
 	"github.com/binary-soup/go-command/command"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -30,9 +28,4 @@ func (suite *CommandSuite) AssertCommandFail(args, errTokens []string) error {
 
 	AssertErrorContainsAll(suite.T(), err, errTokens)
 	return err
-}
-
-func (suite *CommandSuite) ConsolePipe() (ConsolePipe, *bufio.Scanner) {
-	p := NewConsolePipe()
-	return p, bufio.NewScanner(p)
 }
