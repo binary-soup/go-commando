@@ -26,9 +26,7 @@ func NewHelloCommand() HelloCommand {
 }
 
 // Run the Hello commands. See usage string for details.
-func (cmd HelloCommand) Run(args []string) error {
-	cmd.ParseFlags(args)
-
+func (cmd HelloCommand) Run() error {
 	if *cmd.name == "" {
 		return alert.Error("\"name\" cannot be empty")
 	}

@@ -19,7 +19,7 @@ type HelloTestSuite struct {
 }
 
 func (suite *HelloTestSuite) TestNameNotEmpty() {
-	suite.AssertCommandFail([]string{}, []string{"name", "cannot", "empty"})
+	suite.RequireCommandFail([]string{}, []string{"name", "cannot", "empty"})
 }
 
 func (suite *HelloTestSuite) TestPrintName() {
@@ -28,7 +28,7 @@ func (suite *HelloTestSuite) TestPrintName() {
 	out := test.OpenStdoutPipe()
 	defer out.Close()
 
-	suite.AssertCommandSuccess([]string{"-name", NAME})
+	suite.RequireCommandSuccess([]string{"-name", NAME})
 	out.CloseInput()
 
 	out.AssertLineContains(suite.T(), []string{"Hello", NAME})

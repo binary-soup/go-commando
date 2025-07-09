@@ -41,9 +41,7 @@ func NewConfigCommand[T config.Config]() ConfigCommand[T] {
 }
 
 // Runs the config commands. Run with -h for details.
-func (cmd ConfigCommand[T]) Run(args []string) error {
-	cmd.ParseFlags(args)
-
+func (cmd ConfigCommand[T]) Run() error {
 	_, err := cmd.LoadConfig()
 	if err != nil {
 		return err

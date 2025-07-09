@@ -17,15 +17,18 @@ func NewCommandSuite(cmd command.Command) CommandSuite {
 	}
 }
 
-func (suite *CommandSuite) AssertCommandSuccess(args []string) {
-	err := suite.Cmd.Run(args)
+func (suite *CommandSuite) RequireCommandSuccess(args []string) {
+	suite.Cmd.SubmitArgs(args)
+
+	err := suite.Cmd.Run()
 	require.NoError(suite.T(), err)
 }
 
-func (suite *CommandSuite) AssertCommandFail(args, errTokens []string) error {
-	err := suite.Cmd.Run(args)
+func (suite *CommandSuite) RequireCommandFail(args, errTokens []string) {
+	suite.Cmd.SubmitArgs(args)
+
+	err := suite.Cmd.Run()
 	require.Error(suite.T(), err)
 
 	AssertErrorContainsAll(suite.T(), err, errTokens)
-	return err
 }
