@@ -23,7 +23,7 @@ func (suite *HelloTestSuite) TestNameNotEmpty() {
 }
 
 func (suite *HelloTestSuite) TestPrintName() {
-	const NAME = "Bob"
+	var NAME = test.RandASCII(suite.Rand, 100)
 
 	out := test.OpenStdoutPipe()
 	defer out.Close()

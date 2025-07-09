@@ -1,6 +1,9 @@
 package test
 
 import (
+	"math/rand"
+	"time"
+
 	"github.com/binary-soup/go-command/command"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -10,13 +13,15 @@ import (
 // Provides helpers for various common tests.
 type CommandSuite struct {
 	suite.Suite
-	Cmd command.Command
+	Rand rand.Source
+	Cmd  command.Command
 }
 
 // Creates a new NewCommandSuite for the given command interface.
 func NewCommandSuite(cmd command.Command) CommandSuite {
 	return CommandSuite{
-		Cmd: cmd,
+		Rand: rand.NewSource(time.Now().UnixNano()),
+		Cmd:  cmd,
 	}
 }
 
