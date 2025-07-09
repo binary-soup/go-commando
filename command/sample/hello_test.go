@@ -28,8 +28,8 @@ func (suite *HelloTestSuite) TestPrintName() {
 	out := test.OpenStdoutPipe()
 	defer out.Close()
 
-	suite.RequireCommandSuccess([]string{"-name", NAME})
+	suite.RequireCommandPass([]string{"-name", NAME})
 	out.CloseInput()
 
-	out.AssertLineContains(suite.T(), []string{"Hello", NAME})
+	out.AssertLineContainsSubstrings(suite.T(), []string{"Hello", NAME})
 }

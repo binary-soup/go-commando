@@ -56,7 +56,7 @@ func (p StdoutPipe) ReadLine(t *testing.T) string {
 	return ""
 }
 
-// Assert whether the next line in the pipe contains ALL the string sub-tokens.
-func (p StdoutPipe) AssertLineContains(t *testing.T, tokens []string) {
-	AssertContainsAll(t, p.ReadLine(t), tokens)
+// Assert whether the next line in the pipe contains ALL the substrings.
+func (p StdoutPipe) AssertLineContainsSubstrings(t *testing.T, substrings []string) {
+	AssertContainsSubstrings(t, p.ReadLine(t), substrings)
 }
