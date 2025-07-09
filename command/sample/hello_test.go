@@ -25,9 +25,11 @@ func (suite *HelloTestSuite) TestNameNotEmpty() {
 func (suite *HelloTestSuite) TestPrintName() {
 	const NAME = "Bob"
 
-	r := test.NewStdoutReader()
-	defer r.Close()
+	out := test.OpenStdoutPipe()
+	defer out.Close()
 
 	suite.AssertCommandSuccess([]string{"-name", NAME})
-	r.AssertLineContains(suite.T(), []string{"Hello", NAME})
+	out.CloseInput()
+
+	out.AssertLineContains(suite.T(), []string{"Hello", NAME})
 }
