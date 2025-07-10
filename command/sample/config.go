@@ -1,9 +1,8 @@
 package sample
 
 import (
-	"os"
-
 	"github.com/binary-soup/go-command/alert"
+	"github.com/binary-soup/go-command/d"
 )
 
 const (
@@ -30,11 +29,11 @@ func (cfg SampleConfig) Validate() ([]error, error) {
 	if cfg.Path == "" {
 		errs = append(errs, alert.Error("path cannot be empty"))
 	} else {
-		_, err := os.Stat(cfg.Path)
-		if os.IsNotExist(err) {
-			errs = append(errs, alert.Error("path does not exist"))
-		} else if err != nil {
+		ok, err := d.FileSystem.Exists(cfg.Path)
+		if err != nil {
 			return nil, err
+		} else if !ok {
+			errs = append(errs, alert.Error("path does not exist"))
 		}
 	}
 

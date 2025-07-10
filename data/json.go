@@ -1,17 +1,17 @@
-package util
+package data
 
 import (
 	"encoding/json"
-	"os"
 
 	"github.com/binary-soup/go-command/alert"
+	"github.com/binary-soup/go-command/d"
 )
 
 // Load the generic type from a JSON file.
 func LoadJSON[T any](name, path string) (T, error) {
 	var obj T
 
-	file, err := os.Open(path)
+	file, err := d.FileSystem.Open(path)
 	if err != nil {
 		return obj, alert.ChainErrorF(err, "error opening %s file", name)
 	}
@@ -27,7 +27,7 @@ func LoadJSON[T any](name, path string) (T, error) {
 
 // Save the generic type to a JSON file.
 func SaveJSON[T any](name string, obj T, path string) error {
-	file, err := os.Create(path)
+	file, err := d.FileSystem.Create(path)
 	if err != nil {
 		return alert.ChainErrorF(err, "error creating %s file", name)
 	}

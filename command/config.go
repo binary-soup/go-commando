@@ -15,7 +15,7 @@ func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[
 
 	return ConfigCommandBase[T]{
 		CommandBase: base,
-		config:      base.Flags.String("config", "", "path to a custom config file"),
+		config:      base.Flags.String("cfg", "", "path to a custom config file"),
 	}
 }
 

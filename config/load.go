@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/binary-soup/go-command/alert"
-	"github.com/binary-soup/go-command/util"
+	"github.com/binary-soup/go-command/data"
 )
 
 var defaultPath = "config.json"
@@ -30,7 +30,7 @@ func LoadDefault[T Config]() (T, error) {
 
 // Load the config from a custom path.
 func LoadCustom[T Config](path string) (T, error) {
-	cfg, err := util.LoadJSON[T]("config", path)
+	cfg, err := data.LoadJSON[T]("config", path)
 	if err != nil {
 		return cfg, err
 	}
