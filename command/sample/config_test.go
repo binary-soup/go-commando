@@ -15,6 +15,11 @@ import (
 
 const CONFIG_FILE = "config.json"
 
+type ConfigTestSuite struct {
+	test.CommandSuite
+	Data fs.StaticMap
+}
+
 func TestConfigCommandSuite(t *testing.T) {
 	s := ConfigTestSuite{
 		CommandSuite: test.NewCommandSuite(command.NewConfigCommand[sample.SampleConfig]()),
@@ -24,11 +29,6 @@ func TestConfigCommandSuite(t *testing.T) {
 	defer d.FileSystem.Restore()
 
 	suite.Run(t, &s)
-}
-
-type ConfigTestSuite struct {
-	test.CommandSuite
-	Data fs.StaticMap
 }
 
 func (s *ConfigTestSuite) SetupTest() {

@@ -32,6 +32,9 @@ func (m StaticMap) Open(key string) (io.ReadCloser, error) {
 	return buf, nil
 }
 
+// Creates a new entry and returns a writer for the buffer. Closing the buffer does nothing.
+//
+// Never returns an error.
 func (m StaticMap) Create(key string) (io.WriteCloser, error) {
 	buf := new(buffer)
 

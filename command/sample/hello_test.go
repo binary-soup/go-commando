@@ -8,14 +8,14 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+type HelloTestSuite struct {
+	test.CommandSuite
+}
+
 func TestHelloCommandSuite(t *testing.T) {
 	suite.Run(t, &HelloTestSuite{
 		CommandSuite: test.NewCommandSuite(sample.NewHelloCommand()),
 	})
-}
-
-type HelloTestSuite struct {
-	test.CommandSuite
 }
 
 func (suite *HelloTestSuite) TestNameNotEmpty() {
