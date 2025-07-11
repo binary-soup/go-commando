@@ -1,38 +1,25 @@
 package sample_test
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/binary-soup/go-command/command"
 	"github.com/binary-soup/go-command/command/sample"
 	"github.com/binary-soup/go-command/config"
-	"github.com/binary-soup/go-command/d"
-	"github.com/binary-soup/go-command/d/fs"
 	"github.com/binary-soup/go-command/data"
 	"github.com/binary-soup/go-command/test"
 	"github.com/stretchr/testify/suite"
 )
 
-const CONFIG_FILE = "config.json"
-
 type ConfigTestSuite struct {
 	test.CommandSuite
-	Data fs.StaticMap
 }
 
 func TestConfigCommandSuite(t *testing.T) {
-	s := ConfigTestSuite{
+	suite.Run(t, &ConfigTestSuite{
 		CommandSuite: test.NewCommandSuite(command.NewConfigCommand[sample.SampleConfig]()),
-	}
-
-	d.FileSystem.Override(&s.Data)
-	defer d.FileSystem.Restore()
-
-	suite.Run(t, &s)
-}
-
-func (s *ConfigTestSuite) SetupTest() {
-	s.Data = fs.StaticMap{}
+	})
 }
 
 func (s *ConfigTestSuite) StoreConfig(path string, cfg config.Config) {
@@ -41,12 +28,15 @@ func (s *ConfigTestSuite) StoreConfig(path string, cfg config.Config) {
 }
 
 func (s *ConfigTestSuite) TestMissing() {
+	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "missing.json")
 	s.RequireCommandFail([]string{"-cfg", CONFIG_FILE}, []string{"error opening", "config"})
 }
 
 func (s *ConfigTestSuite) TestValid() {
+	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "config.json")
+
 	s.StoreConfig(CONFIG_FILE, sample.SampleConfig{
-		Path:  CONFIG_FILE,
+		Path:  "path/to/somewhere",
 		Count: 50,
 	})
 
@@ -60,6 +50,8 @@ func (s *ConfigTestSuite) TestValid() {
 }
 
 func (s *ConfigTestSuite) TestInvalidValid() {
+	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "config.json")
+
 	s.StoreConfig(CONFIG_FILE, sample.SampleConfig{
 		Path:  "does/not/exist",
 		Count: 105,

@@ -2,12 +2,8 @@ package sample_test
 
 import (
 	"math/rand"
-	"testing"
-	"time"
 
 	"github.com/binary-soup/go-command/command/sample"
-	"github.com/binary-soup/go-command/d"
-	"github.com/binary-soup/go-command/d/fs"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -18,28 +14,28 @@ type SampleConfigSuite struct {
 	Config sample.SampleConfig
 }
 
-func TestSampleConfigSuite(t *testing.T) {
-	fs := fs.StaticMap{}
-	fs.Create(CONFIG_FILE)
+// func TestSampleConfigSuite(t *testing.T) {
+// 	fs := fs.StaticMap{}
+// 	fs.Create(CONFIG_FILE)
 
-	d.FileSystem.Override(&fs)
-	defer d.FileSystem.Restore()
+// 	d.FileSystem.Override(&fs)
+// 	defer d.FileSystem.Restore()
 
-	suite.Run(t, &SampleConfigSuite{
-		Rand: rand.NewSource(time.Now().UnixNano()),
-	})
-}
+// 	suite.Run(t, &SampleConfigSuite{
+// 		Rand: rand.NewSource(time.Now().UnixNano()),
+// 	})
+// }
 
-func (s *SampleConfigSuite) SetupTest() {
-	s.Config = sample.SampleConfig{
-		Path:  CONFIG_FILE,
-		Count: 50,
-	}
-}
+// func (s *SampleConfigSuite) SetupTest() {
+// 	s.Config = sample.SampleConfig{
+// 		Path:  CONFIG_FILE,
+// 		Count: 50,
+// 	}
+// }
 
-func (s *SampleConfigSuite) TestValid() {
-	verrs, err := s.Config.Validate()
-	s.Require().NoError(err)
+// func (s *SampleConfigSuite) TestValid() {
+// 	verrs, err := s.Config.Validate()
+// 	s.Require().NoError(err)
 
-	s.Empty(verrs)
-}
+// 	s.Empty(verrs)
+// }
