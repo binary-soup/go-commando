@@ -22,7 +22,7 @@ func (SampleConfig) Load() error {
 
 // Implements Config interface Validate method.
 // Provides example implementation for writing validations.
-func (cfg SampleConfig) Validate() ([]error, error) {
+func (cfg SampleConfig) Validate() []error {
 	errs := []error{}
 
 	if cfg.Path == "" {
@@ -35,5 +35,5 @@ func (cfg SampleConfig) Validate() ([]error, error) {
 		errs = append(errs, alert.ErrorF("count more than max %d", COUNT_MAX))
 	}
 
-	return errs, nil
+	return errs
 }

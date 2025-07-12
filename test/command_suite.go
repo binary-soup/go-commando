@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/binary-soup/go-command/command"
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -26,21 +25,21 @@ func NewCommandSuite(cmd command.Command) CommandSuite {
 }
 
 // Runs the command with the provided args and requires it passes (returns no error).
-func (suite *CommandSuite) RequireCommandPass(args []string) {
-	suite.Cmd.SubmitArgs(args)
+func (s *CommandSuite) RequireCommandPass(args []string) {
+	s.Cmd.SubmitArgs(args)
 
-	err := suite.Cmd.Run()
-	require.NoError(suite.T(), err)
+	err := s.Cmd.Run()
+	s.Require().NoError(err)
 }
 
 // Runs the command with the provided args and requires it fails (returns an error).
 //
 // Also asserts the error message contains all the substrings.
-func (suite *CommandSuite) RequireCommandFail(args, errTokens []string) {
-	suite.Cmd.SubmitArgs(args)
+func (s *CommandSuite) RequireCommandFail(args, errTokens []string) {
+	s.Cmd.SubmitArgs(args)
 
-	err := suite.Cmd.Run()
-	require.Error(suite.T(), err)
+	err := s.Cmd.Run()
+	s.Require().Error(err)
 
-	AssertErrorContainsSubstrings(suite.T(), err, errTokens)
+	ErrorContainsSubstrings(s.T(), err, errTokens)
 }

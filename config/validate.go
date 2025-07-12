@@ -6,17 +6,15 @@ import (
 )
 
 func validate[T Config](cfg T) error {
-	errs, err := cfg.Validate()
-	if err != nil {
-		return alert.ChainError(err, "error validating config")
-	}
+	verrs := cfg.Validate()
 
-	if len(errs) == 0 {
+	if len(verrs) == 0 {
 		return nil
 	}
+	var err error
 
-	for i := len(errs) - 1; i >= 0; i-- {
-		err = alert.ChainErrorF(err, "%s %s", style.Error.Format("[X]"), errs[i].Error())
+	for i := len(verrs) - 1; i >= 0; i-- {
+		err = alert.ChainErrorF(err, "%s %s", style.Error.Format("[X]"), verrs[i].Error())
 	}
 	return alert.ChainError(err, "invalid config")
 }

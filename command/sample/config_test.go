@@ -40,13 +40,11 @@ func (s *ConfigTestSuite) TestValid() {
 		Count: 50,
 	})
 
-	p := test.OpenStdoutPipe()
-	defer p.Close()
+	pipe := test.OpenStdoutPipe()
+	defer pipe.Close()
 
 	s.RequireCommandPass([]string{"-cfg", CONFIG_FILE})
-	p.CloseInput()
-
-	p.AssertLineContainsSubstrings(s.T(), []string{"VALID"})
+	pipe.TestNextLineContainsSubstrings(s.T(), []string{"VALID"})
 }
 
 func (s *ConfigTestSuite) TestInvalidValid() {

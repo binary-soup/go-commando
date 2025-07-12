@@ -4,7 +4,7 @@ import (
 	"math/rand"
 )
 
-// Generate a random ASCII string of printable characters for use in tests.
+// Generate a random ASCII string of printable characters.
 func RandASCII(src rand.Source, len int) string {
 	r := rand.New(src)
 

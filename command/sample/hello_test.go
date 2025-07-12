@@ -25,11 +25,9 @@ func (suite *HelloTestSuite) TestNameNotEmpty() {
 func (suite *HelloTestSuite) TestPrintName() {
 	var NAME = test.RandASCII(suite.Rand, 100)
 
-	out := test.OpenStdoutPipe()
-	defer out.Close()
+	pipe := test.OpenStdoutPipe()
+	defer pipe.Close()
 
 	suite.RequireCommandPass([]string{"-name", NAME})
-	out.CloseInput()
-
-	out.AssertLineContainsSubstrings(suite.T(), []string{"Hello", NAME})
+	pipe.TestNextLineContainsSubstrings(suite.T(), []string{"Hello", NAME})
 }
