@@ -44,7 +44,7 @@ func (s *ConfigTestSuite) TestValid() {
 	defer pipe.Close()
 
 	s.RequireCommandPass([]string{"-cfg", CONFIG_FILE})
-	pipe.TestNextLineContainsSubstrings(s.T(), []string{"VALID"})
+	test.ContainsSubstrings(s.T(), pipe.NextLine(s.T()), []string{"VALID"})
 }
 
 func (s *ConfigTestSuite) TestInvalidValid() {

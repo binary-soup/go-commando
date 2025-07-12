@@ -33,7 +33,7 @@ func OpenStdoutPipe() StdoutPipe {
 // Close the input and restore stdout.
 // The pipe can still be read from, but will no longer be written to.
 //
-// Useful if you want to restore stdout, but have not finished reading from the pipe.
+// Note: closing the input before reading may be required to avoid inconsistent errors.
 func (p StdoutPipe) CloseInput() {
 	os.Stdout = p.stdout
 	p.in.Close()
@@ -47,16 +47,11 @@ func (p StdoutPipe) Close() {
 }
 
 // Read the next line in the pipe. If there are no more lines, the test fails.
-func (p StdoutPipe) ReadLine(t *testing.T) string {
+func (p StdoutPipe) NextLine(t *testing.T) string {
 	if p.scanner.Scan() {
 		return p.scanner.Text()
 	}
 
 	assert.FailNow(t, "reached end of stdout pipe")
 	return ""
-}
-
-// Assert whether the next line in the pipe contains ALL the substrings.
-func (p StdoutPipe) TestNextLineContainsSubstrings(t *testing.T, substrings []string) {
-	ContainsSubstrings(t, p.ReadLine(t), substrings)
 }

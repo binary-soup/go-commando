@@ -17,7 +17,7 @@ func ConfigValid(t *testing.T, cfg config.Config) {
 func ConfigValidateErrors(t *testing.T, cfg config.Config, errSubstrings ...[]string) {
 	verrs := cfg.Validate()
 
-	require.Equal(t, len(verrs), len(errSubstrings))
+	require.Equal(t, len(verrs), len(errSubstrings), "wrong number of validation errors")
 	for i, substrings := range errSubstrings {
 		ContainsSubstrings(t, verrs[i].Error(), substrings)
 	}

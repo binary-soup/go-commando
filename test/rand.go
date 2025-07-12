@@ -2,7 +2,13 @@ package test
 
 import (
 	"math/rand"
+	"time"
 )
+
+// Create a new rand source using the current clock time.
+func NewRandSource() rand.Source {
+	return rand.NewSource(time.Now().UnixMilli())
+}
 
 // Generate a random ASCII string of printable characters.
 func RandASCII(src rand.Source, len int) string {

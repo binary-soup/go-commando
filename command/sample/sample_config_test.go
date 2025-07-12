@@ -3,7 +3,6 @@ package sample_test
 import (
 	"math/rand"
 	"testing"
-	"time"
 
 	"github.com/binary-soup/go-command/command/sample"
 	"github.com/binary-soup/go-command/test"
@@ -18,7 +17,7 @@ type SampleConfigSuite struct {
 
 func TestSampleConfigSuite(t *testing.T) {
 	suite.Run(t, &SampleConfigSuite{
-		Rand: rand.NewSource(time.Now().UnixNano()),
+		Rand: test.NewRandSource(),
 	})
 }
 

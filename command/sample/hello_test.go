@@ -18,16 +18,16 @@ func TestHelloCommandSuite(t *testing.T) {
 	})
 }
 
-func (suite *HelloTestSuite) TestNameNotEmpty() {
-	suite.RequireCommandFail([]string{}, []string{"name", "cannot", "empty"})
+func (s *HelloTestSuite) TestNameNotEmpty() {
+	s.RequireCommandFail([]string{}, []string{"name", "cannot", "empty"})
 }
 
-func (suite *HelloTestSuite) TestPrintName() {
-	var NAME = test.RandASCII(suite.Rand, 100)
+func (s *HelloTestSuite) TestPrintName() {
+	var NAME = test.RandASCII(s.Rand, 100)
 
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()
 
-	suite.RequireCommandPass([]string{"-name", NAME})
-	pipe.TestNextLineContainsSubstrings(suite.T(), []string{"Hello", NAME})
+	s.RequireCommandPass([]string{"-name", NAME})
+	test.ContainsSubstrings(s.T(), pipe.NextLine(s.T()), []string{"Hello", NAME})
 }
