@@ -9,7 +9,7 @@ import (
 )
 
 func TestChooseOption(t *testing.T) {
-	var PROMPT = test.RandASCII(test.NewRandSource(), 15)
+	var PROMPT = test.NewRand().ASCII(15)
 
 	in := test.OpenStdinPipe()
 	defer in.Close()
@@ -17,7 +17,8 @@ func TestChooseOption(t *testing.T) {
 	options := []byte("abcde")
 	for i, option := range options {
 		// blank, invalid, correct
-		in.WriteLines("", "X", string(option))
+		var INPUT = []any{"", "X", string(option)}
+		in.WriteLines(INPUT...)
 
 		pipe := test.OpenStdoutPipe()
 		defer pipe.Close()
@@ -25,7 +26,7 @@ func TestChooseOption(t *testing.T) {
 		res := prompt.New().ChooseOption(PROMPT, options)
 		pipe.CloseInput()
 
-		test.PromptCount(t, pipe.NextLine(t), PROMPT, 3)
+		test.PromptCount(t, pipe.NextLine(t), PROMPT, len(INPUT))
 		assert.Equal(t, options[i], res, "result does not match chosen option")
 	}
 }

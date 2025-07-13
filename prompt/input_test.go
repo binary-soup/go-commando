@@ -5,15 +5,25 @@ import (
 
 	"github.com/binary-soup/go-command/prompt"
 	"github.com/binary-soup/go-command/test"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestInput(t *testing.T) {
-	src := test.NewRandSource()
-	var PROMPT = test.RandASCII(src, 15)
-	var INPUT = test.RandASCII(src, 30)
+type InputSuite struct {
+	suite.Suite
+	Rand test.Rand
+}
 
-	in := test.OpenStdinPipe(INPUT)
+func TestInputSuite(t *testing.T) {
+	suite.Run(t, &InputSuite{
+		Rand: test.NewRand(),
+	})
+}
+
+func (s *InputSuite) TestInput() {
+	var PROMPT = s.Rand.ASCII(15)
+	var TEXT = s.Rand.ASCII(30)
+
+	in := test.OpenStdinPipe(TEXT)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -22,17 +32,18 @@ func TestInput(t *testing.T) {
 	res := prompt.New().Input(PROMPT)
 	pipe.CloseInput()
 
-	test.PromptCount(t, pipe.NextLine(t), PROMPT, 1)
-	assert.Equal(t, INPUT, res)
+	test.PromptCount(s.T(), pipe.NextLine(s.T()), PROMPT, 1)
+	s.Equal(TEXT, res)
 }
 
-func TestNonEmptyInput(t *testing.T) {
-	src := test.NewRandSource()
-	var PROMPT = test.RandASCII(src, 15)
-	var INPUT = test.RandASCII(src, 30)
+func (s *InputSuite) TestNonEmptyInput() {
+	var PROMPT = s.Rand.ASCII(15)
+	var TEXT = s.Rand.ASCII(30)
 
 	// empty, valid
-	in := test.OpenStdinPipe("", INPUT)
+	var INPUT = []any{"", TEXT}
+
+	in := test.OpenStdinPipe(INPUT...)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -41,6 +52,6 @@ func TestNonEmptyInput(t *testing.T) {
 	res := prompt.New().NonEmptyInput(PROMPT)
 	pipe.CloseInput()
 
-	test.PromptCount(t, pipe.NextLine(t), PROMPT, 2)
-	assert.Equal(t, INPUT, res)
+	test.PromptCount(s.T(), pipe.NextLine(s.T()), PROMPT, len(INPUT))
+	s.Equal(TEXT, res)
 }

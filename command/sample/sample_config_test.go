@@ -1,7 +1,6 @@
 package sample_test
 
 import (
-	"math/rand"
 	"testing"
 
 	"github.com/binary-soup/go-command/command/sample"
@@ -11,13 +10,13 @@ import (
 
 type SampleConfigSuite struct {
 	suite.Suite
-	Rand   rand.Source
+	Rand   test.Rand
 	Config sample.SampleConfig
 }
 
 func TestSampleConfigSuite(t *testing.T) {
 	suite.Run(t, &SampleConfigSuite{
-		Rand: test.NewRandSource(),
+		Rand: test.NewRand(),
 	})
 }
 

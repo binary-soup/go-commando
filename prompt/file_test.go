@@ -5,12 +5,22 @@ import (
 
 	"github.com/binary-soup/go-command/prompt"
 	"github.com/binary-soup/go-command/test"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestConfirmOverwriteFileNotExist(t *testing.T) {
-	//var TITLE = test.RandASCII(test.NewRandSource(), 10)
-	var PATH = test.TempFile(t, "does/not/exist.txt")
+type ConfirmOverwriteSuite struct {
+	suite.Suite
+	Rand test.Rand
+}
+
+func TestConfirmOverwriteSuite(t *testing.T) {
+	suite.Run(t, &ConfirmOverwriteSuite{
+		Rand: test.NewRand(),
+	})
+}
+
+func (s *ConfirmOverwriteSuite) TestFileNotExist() {
+	var PATH = test.TempFile(s.T(), "does/not/exist.txt")
 
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()
@@ -18,16 +28,18 @@ func TestConfirmOverwriteFileNotExist(t *testing.T) {
 	res := prompt.New().ConfirmOverwrite("", PATH)
 	pipe.CloseInput()
 
-	pipe.TestEOF(t)
-	assert.True(t, res)
+	pipe.TestEOF(s.T())
+	s.True(res)
 }
 
-func TestConfirmOverwriteYes(t *testing.T) {
-	var TITLE = test.RandASCII(test.NewRandSource(), 10)
-	var PATH = test.CreateEmptyTempFile(t, "file.txt")
+func (s *ConfirmOverwriteSuite) TestYes() {
+	var TITLE = s.Rand.ASCII(10)
+	var PATH = test.CreateEmptyTempFile(s.T(), "file.txt")
 
 	// blank, invalid, wrong case, correct
-	in := test.OpenStdinPipe("", "X", "y", "Y")
+	var INPUT = []any{"", "X", "y", "Y"}
+
+	in := test.OpenStdinPipe(INPUT...)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -36,19 +48,21 @@ func TestConfirmOverwriteYes(t *testing.T) {
 	res := prompt.New().ConfirmOverwrite(TITLE, PATH)
 
 	pipe.CloseInput()
-	line := pipe.NextLine(t)
+	line := pipe.NextLine(s.T())
 
-	test.ContainsSubstrings(t, line, []string{TITLE, "exists", PATH})
-	test.PromptCount(t, line, TITLE, 4)
-	assert.True(t, res)
+	test.ContainsSubstrings(s.T(), line, []string{TITLE, "exists", PATH})
+	test.PromptCount(s.T(), line, TITLE, len(INPUT))
+	s.True(res)
 }
 
-func TestConfirmOverwriteNo(t *testing.T) {
-	var TITLE = test.RandASCII(test.NewRandSource(), 10)
-	var PATH = test.CreateEmptyTempFile(t, "file.txt")
+func (s *ConfirmOverwriteSuite) TestNo() {
+	var TITLE = s.Rand.ASCII(10)
+	var PATH = test.CreateEmptyTempFile(s.T(), "file.txt")
 
 	// blank, invalid, wrong case, correct
-	in := test.OpenStdinPipe("", "X", "N", "n")
+	var INPUT = []any{"", "X", "N", "n"}
+
+	in := test.OpenStdinPipe(INPUT...)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -57,9 +71,9 @@ func TestConfirmOverwriteNo(t *testing.T) {
 	res := prompt.New().ConfirmOverwrite(TITLE, PATH)
 
 	pipe.CloseInput()
-	line := pipe.NextLine(t)
+	line := pipe.NextLine(s.T())
 
-	test.ContainsSubstrings(t, line, []string{TITLE, "exists", PATH})
-	test.PromptCount(t, line, TITLE, 4)
-	assert.False(t, res)
+	test.ContainsSubstrings(s.T(), line, []string{TITLE, "exists", PATH})
+	test.PromptCount(s.T(), line, TITLE, len(INPUT))
+	s.False(res)
 }
