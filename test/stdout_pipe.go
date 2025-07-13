@@ -55,3 +55,8 @@ func (p StdoutPipe) NextLine(t *testing.T) string {
 	assert.FailNow(t, "reached end of stdout pipe")
 	return ""
 }
+
+// Assert the pipe has no more lines.
+func (p StdoutPipe) TestEOF(t *testing.T) {
+	assert.False(t, p.scanner.Scan(), "stdout pipe has more lines")
+}

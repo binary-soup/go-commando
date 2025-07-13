@@ -1,7 +1,6 @@
 package sample_test
 
 import (
-	"path/filepath"
 	"testing"
 
 	"github.com/binary-soup/go-command/command"
@@ -28,12 +27,12 @@ func (s *ConfigTestSuite) StoreConfig(path string, cfg config.Config) {
 }
 
 func (s *ConfigTestSuite) TestMissing() {
-	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "missing.json")
+	var CONFIG_FILE = test.TempFile(s.T(), "missing.json")
 	s.RequireCommandFail([]string{"-cfg", CONFIG_FILE}, []string{"error opening", "config"})
 }
 
 func (s *ConfigTestSuite) TestValid() {
-	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "config.json")
+	var CONFIG_FILE = test.TempFile(s.T(), "config.json")
 
 	s.StoreConfig(CONFIG_FILE, sample.SampleConfig{
 		Path:  "path/to/somewhere",
@@ -48,7 +47,7 @@ func (s *ConfigTestSuite) TestValid() {
 }
 
 func (s *ConfigTestSuite) TestInvalidValid() {
-	var CONFIG_FILE = filepath.Join(s.T().TempDir(), "config.json")
+	var CONFIG_FILE = test.TempFile(s.T(), "config.json")
 
 	s.StoreConfig(CONFIG_FILE, sample.SampleConfig{
 		Path:  "does/not/exist",

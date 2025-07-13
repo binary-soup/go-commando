@@ -16,6 +16,7 @@ func TestPromptOption(t *testing.T) {
 
 	options := []byte("abcde")
 	for i, option := range options {
+		// blank, invalid, correct
 		in.WriteLines("", "X", string(option))
 
 		pipe := test.OpenStdoutPipe()
@@ -24,7 +25,7 @@ func TestPromptOption(t *testing.T) {
 		res := prompt.ChooseOption(PROMPT, options)
 		pipe.CloseInput()
 
-		test.ContainsSubstringCount(t, pipe.NextLine(t), PROMPT, 3, "wrong number of prompts")
+		test.PromptCount(t, pipe.NextLine(t), PROMPT, 3)
 		assert.Equal(t, options[i], res, "result does not match chosen option")
 	}
 }
