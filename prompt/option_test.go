@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPromptOption(t *testing.T) {
+func TestChooseOption(t *testing.T) {
 	var PROMPT = test.RandASCII(test.NewRandSource(), 15)
 
 	in := test.OpenStdinPipe()
@@ -22,7 +22,7 @@ func TestPromptOption(t *testing.T) {
 		pipe := test.OpenStdoutPipe()
 		defer pipe.Close()
 
-		res := prompt.ChooseOption(PROMPT, options)
+		res := prompt.New().ChooseOption(PROMPT, options)
 		pipe.CloseInput()
 
 		test.PromptCount(t, pipe.NextLine(t), PROMPT, 3)

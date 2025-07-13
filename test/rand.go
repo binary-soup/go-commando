@@ -7,7 +7,7 @@ import (
 
 // Create a new rand source using the current clock time.
 func NewRandSource() rand.Source {
-	return rand.NewSource(time.Now().UnixMilli())
+	return rand.NewSource(time.Now().UnixNano())
 }
 
 // Generate a random ASCII string of printable characters.

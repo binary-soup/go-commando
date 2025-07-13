@@ -15,7 +15,7 @@ func TestConfirmOverwriteFileNotExist(t *testing.T) {
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()
 
-	res := prompt.ConfirmOverwrite("", PATH)
+	res := prompt.New().ConfirmOverwrite("", PATH)
 	pipe.CloseInput()
 
 	pipe.TestEOF(t)
@@ -33,7 +33,7 @@ func TestConfirmOverwriteYes(t *testing.T) {
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()
 
-	res := prompt.ConfirmOverwrite(TITLE, PATH)
+	res := prompt.New().ConfirmOverwrite(TITLE, PATH)
 
 	pipe.CloseInput()
 	line := pipe.NextLine(t)
@@ -54,7 +54,7 @@ func TestConfirmOverwriteNo(t *testing.T) {
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()
 
-	res := prompt.ConfirmOverwrite(TITLE, PATH)
+	res := prompt.New().ConfirmOverwrite(TITLE, PATH)
 
 	pipe.CloseInput()
 	line := pipe.NextLine(t)
