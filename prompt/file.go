@@ -9,6 +9,7 @@ import (
 
 // Check if a path already exists, and prompt the user from stdin if they wish to overwrite it.
 //
+// The prompt will repeat until a valid option is inputted.
 // If the path does not exist, no prompt occurs and true is returned.
 func (p Prompt) ConfirmOverwrite(title, path string) bool {
 	_, err := os.Stat(path)

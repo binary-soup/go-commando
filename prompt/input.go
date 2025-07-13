@@ -13,6 +13,8 @@ func (p Prompt) Input(prompt string) string {
 }
 
 // Prompt the user from stdin to enter any non-empty line of text.
+//
+// The prompt will repeat until a non-empty line is inputted.
 func (p Prompt) NonEmptyInput(prompt string) string {
 	for {
 		line := p.Input(prompt)
