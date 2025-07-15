@@ -5,25 +5,32 @@ import (
 	"github.com/binary-soup/go-command/style"
 )
 
+// A base struct definition for a config command.
+// Provides custom flags and helper methods for accepting and loading config files.
 type ConfigCommandBase[T config.Config] struct {
 	CommandBase
+	env    *string
 	config *string
 }
 
+// Creates a new config command base; mostly used when creating child commands.
+// Additionally defines flags for environment and config path.
 func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[T] {
 	base := NewCommandBase(name, desc)
 
 	return ConfigCommandBase[T]{
 		CommandBase: base,
+		env:         base.Flags.String("env", "main", "the config environment"),
 		config:      base.Flags.String("cfg", "", "path to a custom config file"),
 	}
 }
 
+// Load the config file. Uses the custom path if set, else uses the environment.
 func (cmd ConfigCommandBase[T]) LoadConfig() (T, error) {
 	if *cmd.config != "" {
 		return config.LoadCustom[T](*cmd.config)
 	}
-	return config.LoadDefault[T]()
+	return config.LoadEnv[T](*cmd.env)
 }
 
 //#########################################
