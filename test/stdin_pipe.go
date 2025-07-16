@@ -17,14 +17,14 @@ type StdinPipe struct {
 //
 // input is an optional parameter to write to the pipe after creation.
 // After creating the pipe, WriteLines should be used to write further input.
-func OpenStdinPipe(input ...any) StdinPipe {
+func OpenStdinPipe(input []any) StdinPipe {
 	p := StdinPipe{
 		stdin: os.Stdin,
 	}
 	p.out, p.in, _ = os.Pipe()
 
 	os.Stdin = p.out
-	p.WriteLines(input...)
+	p.WriteLines(input)
 
 	return p
 }
@@ -46,7 +46,7 @@ func (p StdinPipe) Close() {
 }
 
 // Write the input as separate lines to the pipe.
-func (p StdinPipe) WriteLines(input ...any) {
+func (p StdinPipe) WriteLines(input []any) {
 	for _, line := range input {
 		fmt.Fprintln(p.in, line)
 	}

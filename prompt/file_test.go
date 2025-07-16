@@ -15,7 +15,7 @@ type ConfirmOverwriteSuite struct {
 
 func TestConfirmOverwriteSuite(t *testing.T) {
 	suite.Run(t, &ConfirmOverwriteSuite{
-		Rand: test.NewRand(),
+		Rand: test.NewRandFromTime(),
 	})
 }
 
@@ -39,7 +39,7 @@ func (s *ConfirmOverwriteSuite) TestYes() {
 	// blank, invalid, wrong case, correct
 	var INPUT = []any{"", "X", "y", "Y"}
 
-	in := test.OpenStdinPipe(INPUT...)
+	in := test.OpenStdinPipe(INPUT)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -51,7 +51,7 @@ func (s *ConfirmOverwriteSuite) TestYes() {
 	line := pipe.NextLine(s.T())
 
 	test.ContainsSubstrings(s.T(), line, []string{TITLE, "exists", PATH})
-	test.PromptCount(s.T(), line, TITLE, len(INPUT))
+	test.PromptOverwrite(s.T(), line, len(INPUT))
 	s.True(res)
 }
 
@@ -62,7 +62,7 @@ func (s *ConfirmOverwriteSuite) TestNo() {
 	// blank, invalid, wrong case, correct
 	var INPUT = []any{"", "X", "N", "n"}
 
-	in := test.OpenStdinPipe(INPUT...)
+	in := test.OpenStdinPipe(INPUT)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -74,6 +74,6 @@ func (s *ConfirmOverwriteSuite) TestNo() {
 	line := pipe.NextLine(s.T())
 
 	test.ContainsSubstrings(s.T(), line, []string{TITLE, "exists", PATH})
-	test.PromptCount(s.T(), line, TITLE, len(INPUT))
+	test.PromptOverwrite(s.T(), line, len(INPUT))
 	s.False(res)
 }

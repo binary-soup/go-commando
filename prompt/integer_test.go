@@ -9,7 +9,7 @@ import (
 )
 
 func TestInteger(t *testing.T) {
-	r := test.NewRand()
+	r := test.NewRandFromTime()
 
 	var PROMPT = r.ASCII(15)
 	var LIMIT = r.IntRange(-1000, 1000)
@@ -17,7 +17,7 @@ func TestInteger(t *testing.T) {
 	// empty, not an int, too small, too big, valid
 	var INPUT = []any{"", "X", LIMIT - 1, LIMIT + 1, LIMIT}
 
-	in := test.OpenStdinPipe(INPUT...)
+	in := test.OpenStdinPipe(INPUT)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()

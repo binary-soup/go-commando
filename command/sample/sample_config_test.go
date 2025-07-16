@@ -10,14 +10,11 @@ import (
 
 type SampleConfigSuite struct {
 	suite.Suite
-	Rand   test.Rand
 	Config sample.SampleConfig
 }
 
 func TestSampleConfigSuite(t *testing.T) {
-	suite.Run(t, &SampleConfigSuite{
-		Rand: test.NewRand(),
-	})
+	suite.Run(t, &SampleConfigSuite{})
 }
 
 func (s *SampleConfigSuite) SetupTest() {

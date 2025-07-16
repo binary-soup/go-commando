@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/binary-soup/go-command/data"
 	"github.com/stretchr/testify/require"
 )
 
@@ -30,6 +31,16 @@ func CreateTempFile(t *testing.T, path string) (*os.File, string) {
 func CreateEmptyTempFile(t *testing.T, path string) string {
 	file, path := CreateTempFile(t, path)
 	file.Close()
+
+	return path
+}
+
+// Save the json object to a new temp directory and return its path.
+func CreateJSONTempFile[T any](t *testing.T, path string, obj T) string {
+	path = TempFile(t, path)
+
+	err := data.SaveJSON("test json", obj, path)
+	require.NoError(t, err)
 
 	return path
 }

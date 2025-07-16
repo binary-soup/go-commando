@@ -6,23 +6,21 @@ import (
 )
 
 // CommandSuite is a test suite for commands.
-// Provides helpers for various common tests.
-type CommandSuite struct {
+// Provides helpers for running the command with different assertions.
+type CommandSuite[T command.Command] struct {
 	suite.Suite
-	Rand Rand
-	Cmd  command.Command
+	Cmd T
 }
 
 // Creates a new NewCommandSuite for the given command interface.
-func NewCommandSuite(cmd command.Command) CommandSuite {
-	return CommandSuite{
-		Rand: NewRand(),
-		Cmd:  cmd,
+func NewCommandSuite[T command.Command](cmd T) CommandSuite[T] {
+	return CommandSuite[T]{
+		Cmd: cmd,
 	}
 }
 
 // Runs the command with the provided args and requires it passes (returns no error).
-func (s *CommandSuite) RequireCommandPass(args []string) {
+func (s *CommandSuite[T]) RequireCommandPass(args []string) {
 	s.Cmd.SubmitArgs(args)
 
 	err := s.Cmd.Run()
@@ -32,7 +30,7 @@ func (s *CommandSuite) RequireCommandPass(args []string) {
 // Runs the command with the provided args and requires it fails (returns an error).
 //
 // Also asserts the error message contains all the substrings.
-func (s *CommandSuite) RequireCommandFail(args, errTokens []string) {
+func (s *CommandSuite[T]) RequireCommandFail(args, errTokens []string) {
 	s.Cmd.SubmitArgs(args)
 
 	err := s.Cmd.Run()

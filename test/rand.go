@@ -10,11 +10,16 @@ type Rand struct {
 	*rand.Rand
 }
 
-// Create a new rand object using the time as the seed.
-func NewRand() Rand {
+// Create a new rand object from a custom source.
+func NewRand(src rand.Source) Rand {
 	return Rand{
-		Rand: rand.New(rand.NewSource(time.Now().UnixNano())),
+		Rand: rand.New(src),
 	}
+}
+
+// Create a new rand object using the time as the seed.
+func NewRandFromTime() Rand {
+	return NewRand(rand.NewSource(time.Now().UnixNano()))
 }
 
 // Generate a random ASCII string of printable characters.

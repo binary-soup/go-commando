@@ -15,7 +15,7 @@ type InputSuite struct {
 
 func TestInputSuite(t *testing.T) {
 	suite.Run(t, &InputSuite{
-		Rand: test.NewRand(),
+		Rand: test.NewRandFromTime(),
 	})
 }
 
@@ -23,7 +23,7 @@ func (s *InputSuite) TestInput() {
 	var PROMPT = s.Rand.ASCII(15)
 	var TEXT = s.Rand.ASCII(30)
 
-	in := test.OpenStdinPipe(TEXT)
+	in := test.OpenStdinPipe([]any{TEXT})
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()
@@ -43,7 +43,7 @@ func (s *InputSuite) TestNonEmptyInput() {
 	// empty, valid
 	var INPUT = []any{"", TEXT}
 
-	in := test.OpenStdinPipe(INPUT...)
+	in := test.OpenStdinPipe(INPUT)
 	defer in.Close()
 
 	pipe := test.OpenStdoutPipe()

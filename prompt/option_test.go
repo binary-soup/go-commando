@@ -9,16 +9,16 @@ import (
 )
 
 func TestChooseOption(t *testing.T) {
-	var PROMPT = test.NewRand().ASCII(15)
+	var PROMPT = test.NewRandFromTime().ASCII(15)
 
-	in := test.OpenStdinPipe()
+	in := test.OpenStdinPipe([]any{})
 	defer in.Close()
 
 	options := []byte("abcde")
 	for i, option := range options {
 		// blank, invalid, correct
 		var INPUT = []any{"", "X", string(option)}
-		in.WriteLines(INPUT...)
+		in.WriteLines(INPUT)
 
 		pipe := test.OpenStdoutPipe()
 		defer pipe.Close()

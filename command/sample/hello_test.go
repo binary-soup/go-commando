@@ -9,7 +9,7 @@ import (
 )
 
 type HelloTestSuite struct {
-	test.CommandSuite
+	test.CommandSuite[sample.HelloCommand]
 }
 
 func TestHelloCommandSuite(t *testing.T) {
@@ -23,7 +23,7 @@ func (s *HelloTestSuite) TestNameNotEmpty() {
 }
 
 func (s *HelloTestSuite) TestPrintName() {
-	var NAME = s.Rand.ASCII(10)
+	var NAME = test.NewRandFromTime().ASCII(10)
 
 	pipe := test.OpenStdoutPipe()
 	defer pipe.Close()

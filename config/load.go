@@ -8,20 +8,16 @@ import (
 	"github.com/binary-soup/go-command/data"
 )
 
-// Load the config by environment.
-// These files are stored relative to the binary, and should be named in the style of {name}.json.
-func LoadEnv[T Config](name string) (T, error) {
-	var empty T
-
-	path, err := os.Executable()
-	if err != nil {
-		return empty, alert.ChainError(err, "error finding executable path")
-	}
-	return LoadCustom[T](filepath.Join(filepath.Dir(path), name+".json"))
+// Calculate the config path from the environment.
+// These files are stored relative to the binary, and should be named in the style of {env}.json.
+func GetEnvPath(env string) string {
+	path, _ := os.Executable()
+	return filepath.Join(filepath.Dir(path), env+".json")
 }
 
-// Load the config from a custom path.
-func LoadCustom[T Config](path string) (T, error) {
+// Load the config from the given path.
+// Additionally calls config.Load and config.Validate before returning the new struct.
+func Load[T Config](path string) (T, error) {
 	cfg, err := data.LoadJSON[T]("config", path)
 	if err != nil {
 		return cfg, err
