@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/style"
 )
 
 // The interface definition of a command.

@@ -3,10 +3,10 @@ package command
 import (
 	"flag"
 
-	"github.com/binary-soup/go-command/config"
-	"github.com/binary-soup/go-command/data"
-	"github.com/binary-soup/go-command/prompt"
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/config"
+	"github.com/binary-soup/go-commando/data"
+	"github.com/binary-soup/go-commando/prompt"
+	"github.com/binary-soup/go-commando/style"
 )
 
 // A base struct definition for a config command.

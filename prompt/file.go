@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/style"
 )
 
 // Check if a path already exists, and prompt the user from stdin if they wish to overwrite it.

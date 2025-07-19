@@ -1,4 +1,4 @@
-module github.com/binary-soup/go-command
+module github.com/binary-soup/go-commando
 
 go 1.23
 

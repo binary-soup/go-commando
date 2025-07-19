@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/binary-soup/go-command/data"
+	"github.com/binary-soup/go-commando/data"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

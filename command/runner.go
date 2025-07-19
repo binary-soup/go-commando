@@ -1,6 +1,6 @@
 package command
 
-import "github.com/binary-soup/go-command/alert"
+import "github.com/binary-soup/go-commando/alert"
 
 // Runner stores multiple commands and provides methods for running by name.
 type Runner struct {

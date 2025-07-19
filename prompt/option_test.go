@@ -3,8 +3,8 @@ package prompt_test
 import (
 	"testing"
 
-	"github.com/binary-soup/go-command/prompt"
-	"github.com/binary-soup/go-command/test"
+	"github.com/binary-soup/go-commando/prompt"
+	"github.com/binary-soup/go-commando/test"
 	"github.com/stretchr/testify/assert"
 )
 

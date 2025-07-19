@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/binary-soup/go-command/alert"
+	"github.com/binary-soup/go-commando/alert"
 )
 
 // Load the generic type from a JSON file.

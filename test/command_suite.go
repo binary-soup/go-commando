@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/binary-soup/go-command/command"
+	"github.com/binary-soup/go-commando/command"
 	"github.com/stretchr/testify/suite"
 )
 

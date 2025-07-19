@@ -4,8 +4,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/binary-soup/go-command/alert"
-	"github.com/binary-soup/go-command/data"
+	"github.com/binary-soup/go-commando/alert"
+	"github.com/binary-soup/go-commando/data"
 )
 
 // Calculate the config path from the environment.

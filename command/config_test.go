@@ -4,9 +4,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/binary-soup/go-command/command"
-	"github.com/binary-soup/go-command/command/sample"
-	"github.com/binary-soup/go-command/test"
+	"github.com/binary-soup/go-commando/command"
+	"github.com/binary-soup/go-commando/command/sample"
+	"github.com/binary-soup/go-commando/test"
 	"github.com/stretchr/testify/suite"
 )
 
