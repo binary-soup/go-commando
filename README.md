@@ -2,7 +2,24 @@
 
 The `go-commando` module provides several types for managing multiple commands within the same command-line application. This approach to software architecture allows a single application to perform many tasks while ensuring the various commands stay modular and respect the _separation of concerns_ principal.
 
-## Usage (OUT OF DATE)
+The module additionally provides many helper methods and types that would be common in command-line applications.
+
+### `style` package
+
+Using ANSI escape codes, the `style` package provides a semantic way to style console output. A basic usage as follows:
+
+```go
+style.Error.Println("An Error occurred.")
+```
+
+OR
+
+```go
+style.Success.Println("The task succeeded!")
+```
+
+
+## Usage (Work in progress)
 
 The module consists mainly of four packages:
 - `command`: this packages defines multiple types for defining, creating, and running commands.

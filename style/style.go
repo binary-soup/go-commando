@@ -1,4 +1,3 @@
-// Provides semantic types and functions for styling terminal outputs using ANSI escape sequences.
 package style
 
 import (
