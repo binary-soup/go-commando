@@ -4,12 +4,12 @@ The `go-commando` module provides several types for managing multiple commands w
 
 The module additionally provides many helper methods and types that would be common in command-line applications.
 
-### `style` package
+## `style` package
 
 Using ANSI escape codes, the `style` package provides a semantic way to style console output. A basic usage as follows:
 
 ```go
-style.Error.Println("An Error occurred.")
+style.Error.Println("An error occurred.")
 ```
 
 OR
