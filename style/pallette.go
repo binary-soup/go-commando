@@ -1,51 +1,48 @@
 package style
 
-// Several common styles for ease of use.
-
-// No style
 var None = New()
 
-// Bold only
+// (Bold)
 var Bolded = New(Bold)
 
-// Underline only
+// (Underline)
 var Underlined = New(Underline)
 
-// Bold and Underline
+// (Bold, Underline)
 var BoldUnderline = New(Bold, Underline)
 
-// Bold and Green
+// (Bold, Green)
 var BoldSuccess = New(Bold, Green)
 
-// Green
+// (Green)
 var Success = New(Green)
 
-// Bold and Yellow
+// (Bold, Yellow)
 var BoldWarning = New(Bold, Yellow)
 
-// Yellow
+// (Yellow)
 var Warning = New(Yellow)
 
-// Bold and Red
+// (Bold, Red)
 var BoldError = New(Bold, Red)
 
-// Red
+// (Red)
 var Error = New(Red)
 
-// Bold and Green
+// (Bold, Green)
 var BoldCreate = New(Bold, Green)
 
-// Green
+// (Green)
 var Create = New(Green)
 
-// Bold and Red
+// (Bold, Red)
 var BoldDelete = New(Bold, Red)
 
-// Red
+// (Red)
 var Delete = New(Red)
 
-// Bold and Cyan
+// (Bold, Cyan)
 var BoldInfo = New(Bold, Cyan)
 
-// Cyan
+// (Cyan)
 var Info = New(Cyan)
