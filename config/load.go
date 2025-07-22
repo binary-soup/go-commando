@@ -4,8 +4,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/binary-soup/go-command/alert"
-	"github.com/binary-soup/go-command/util"
+	"github.com/binary-soup/go-commando/alert"
+	"github.com/binary-soup/go-commando/util"
 )
 
 var defaultPath = "config.json"

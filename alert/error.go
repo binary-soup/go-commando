@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/style"
 )
 
 // Print the error with a styled prefix.

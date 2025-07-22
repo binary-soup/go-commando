@@ -4,9 +4,9 @@ import (
 	"flag"
 	"os"
 
-	"github.com/binary-soup/go-command/alert"
-	"github.com/binary-soup/go-command/command"
-	"github.com/binary-soup/go-command/command/sample"
+	"github.com/binary-soup/go-commando/alert"
+	"github.com/binary-soup/go-commando/command"
+	"github.com/binary-soup/go-commando/command/sample"
 )
 
 func main() {

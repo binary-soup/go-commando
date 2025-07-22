@@ -1,8 +1,8 @@
 package command
 
 import (
-	"github.com/binary-soup/go-command/config"
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/config"
+	"github.com/binary-soup/go-commando/style"
 )
 
 type ConfigCommandBase[T config.Config] struct {

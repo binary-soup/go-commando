@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/binary-soup/go-command/alert"
-	"github.com/binary-soup/go-command/style"
+	"github.com/binary-soup/go-commando/alert"
+	"github.com/binary-soup/go-commando/style"
 )
 
 func validate[T Config](cfg T) error {

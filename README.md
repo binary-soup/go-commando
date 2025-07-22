@@ -1,16 +1,8 @@
-# go-command [![GoDoc](https://godoc.org/github.com/binary-soup/go-command?status.svg)](https://pkg.go.dev/github.com/binary-soup/go-command)
+# go-commando [![GoDoc](https://godoc.org/github.com/binary-soup/go-commando?status.svg)](https://pkg.go.dev/github.com/binary-soup/go-commando)
 
 The `go-command` module provides several types for managing multiple commands within the same command-line application. This approach to software architecture allows a single application to perform many tasks while ensuring the various commands stay modular and respect the _separation of concerns_ principal.
 
-## Usage
-
-The module consists mainly of four packages:
-- `command`: this packages defines multiple types for defining, creating, and running commands
-- `command/sample`: this package defines sample commands useful for learning how the module works
-- `style`: this package provides semantic types and methods for changing the style (mode and colour) of console output
-- `util`: this packages provides simple helper functions for a verity of general use cases
-
-The following main definition demonstrates the basic usage of the module:
+## Basic Usage
 
 ```go
 func main() {
