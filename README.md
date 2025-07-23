@@ -11,7 +11,6 @@ func main() {
 
 	runner := command.NewRunner(
 		sample.NewHelloCommand(),
-		command.NewConfigCommand[sample.SampleConfig](),
 	)
 
 	if *ls || len(os.Args) < 2 {
