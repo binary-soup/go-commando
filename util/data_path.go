@@ -17,5 +17,5 @@ func UserDataPath(dataDir string) string {
 		panic(err)
 	}
 
-	return filepath.Join(path, dataDir, build.GetMode())
+	return filepath.Join(path, dataDir, build.GetType())
 }
