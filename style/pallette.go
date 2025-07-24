@@ -25,3 +25,6 @@ var Delete = New(Red)
 
 var BoldInfo = New(Bold, Cyan)
 var Info = New(Cyan)
+
+var BoldHighlight = New(Bold, Yellow)
+var Highlight = New(Yellow)
