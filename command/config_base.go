@@ -6,8 +6,8 @@ import (
 
 type ConfigCommandBase[T config.Config] struct {
 	CommandBase
-	config  *string
-	profile *string
+	Config  *string
+	Profile *string
 }
 
 func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[T] {
@@ -15,16 +15,20 @@ func NewConfigCommandBase[T config.Config](name, desc string) ConfigCommandBase[
 		CommandBase: NewCommandBase(name, desc),
 	}
 
-	cmd.config = cmd.Flags.String("cfg", "", "path to a custom config file")
-	cmd.profile = cmd.Flags.String("prof", "main", "the config profile")
+	cmd.Config = cmd.Flags.String("cfg", "", "path to a custom config file")
+	cmd.Profile = cmd.Flags.String("prof", "main", "the config profile")
 	return cmd
 }
 
+func (cmd ConfigCommandBase[T]) UsingConfig() bool {
+	return *cmd.Config != ""
+}
+
 func (cmd ConfigCommandBase[T]) GetConfigPath(dataDir string) string {
-	if *cmd.config != "" {
-		return *cmd.config
+	if cmd.UsingConfig() {
+		return *cmd.Config
 	}
-	return config.GetProfilePath(dataDir, *cmd.profile)
+	return config.GetProfilePath(dataDir, *cmd.Profile)
 }
 
 func (cmd ConfigCommandBase[T]) LoadConfig(dataDir string) (*T, error) {
